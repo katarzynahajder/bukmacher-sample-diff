@@ -1,0 +1,35 @@
+[
+    {
+        "id": 0,
+        "state": "default",
+        "league": "Włochy Serie A",
+        "schedule": "15:00",
+        "firstTeam": "AC Milan",
+        "secondTeam": "Sassuolo",
+        "bet": "remis lub Sassuolo",
+        "exchange": 2.75,
+        "bid": 100
+    },
+    {
+        "id": 1,
+        "state": "default",
+        "league": "Anglia Premier League",
+        "schedule": "20:45",
+        "firstTeam": "Chelsea",
+        "secondTeam": "Tottenham",
+        "bet": "remis",
+        "exchange": 4.20,
+        "bid": 200
+    },
+    {
+        "id": 2,
+        "state": "default",
+        "league": "Belgia Pierwsza Liga",
+        "schedule": "14:30",
+        "firstTeam": "Mechelen",
+        "secondTeam": "Charleroi",
+        "bet": "btts",
+        "exchange": 1.95,
+        "bid": 100
+    }
+]

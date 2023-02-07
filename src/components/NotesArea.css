@@ -1,0 +1,13 @@
+#notesArea{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 50%;
+}
+
+textarea{
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+  
+textarea:focus{outline: none}

@@ -1,0 +1,59 @@
+#recordsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 1rem;
+}
+
+#headers-input{
+  text-align: center;
+}
+
+#data tr:nth-child(odd){background-color: #f2f2f2}
+
+#data tr:hover{background-color: #ddd}
+
+table{
+  border-collapse: collapse;
+}
+
+td, tr{
+  padding: 10px;
+  height: 35px;
+}
+
+input{
+  padding: 6px;
+}
+
+input:focus{outline: none}
+
+.long{
+  width: 200px;
+}
+
+.short{
+  width: 100px;
+  text-align: center;
+}
+
+.longI{
+  width: 184px;
+}
+
+.shortI{
+  width: 84px;
+}
+
+button{
+  border-radius: 5px;
+  padding: 10px;
+  margin: auto;
+  width: 80px;
+  border: 1px solid lightgray;
+}
+
+.totalProfit{
+  text-align: center;
+  border: 1px solid #f2f2f2;
+}
