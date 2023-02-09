@@ -57,7 +57,9 @@ const RecordsContainer=()=>{
       secondTeam: addFormData.secondTeam,
       bet: addFormData.bet,
       exchange: addFormData.exchange,
-      bid: addFormData.bid
+      bid: addFormData.bid,
+      profit: "-",
+      state: "On hold",
     };
     const newRecords=[...records, newRecord];
     setRecords(newRecords);
@@ -73,7 +75,9 @@ const RecordsContainer=()=>{
       secondTeam: editFormData.secondTeam,
       bet: editFormData.bet,
       exchange: editFormData.exchange,
-      bid: editFormData.bid
+      bid: editFormData.bid,
+      profit: "-",
+      state: "On hold"
     };
     const newRecords=[...records];
     const index=records.findIndex((record)=>record.id===editRecordId);
@@ -108,6 +112,13 @@ const RecordsContainer=()=>{
     setRecords(newRecords);
   };
 
+  const [tax, setTax]=useState(false);
+
+  const handleTaxChange=()=>{
+    setTax(!tax);
+    console.log(!tax)
+  }
+
   return(
     <div id="recordsContainer">
       <form onSubmit={handleAddFormSubmit}>
@@ -122,7 +133,7 @@ const RecordsContainer=()=>{
               <th className="short">Exchange</th>
               <th className="short">Bid</th>
               <th className="short">Profit</th>
-              <th className="short">Status</th>
+              <th className="short">State</th>
             </tr>
             <tr>
               <td className="long"><input type="text" name="league" className="longI" required="required" onChange={handleAddFormChange} /></td>
@@ -135,6 +146,7 @@ const RecordsContainer=()=>{
               <td className="short"></td>
               <td className="short"></td>
               <td><button type="submit">Add</button></td>
+              <td><button type="button" className={tax ? "taxOn" : ""} onClick={handleTaxChange}>Tax</button></td>
             </tr>
           </thead>
         </table>
@@ -155,6 +167,7 @@ const RecordsContainer=()=>{
                     record={record}
                     handleEditClick={handleEditClick}
                     handleDeleteClick={handleDeleteClick}
+                    tax={tax}
                   />
                 )}
               </Fragment>

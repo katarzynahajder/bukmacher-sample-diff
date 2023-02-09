@@ -17,9 +17,15 @@ table{
   border-collapse: collapse;
 }
 
-td, tr{
+th{
+  background-color: #597178;
+  color: white;
+}
+
+td, th, tr{
   padding: 10px;
   height: 35px;
+  border: 1px solid #cdcdcd;
 }
 
 input{
@@ -55,5 +61,26 @@ button{
 
 .totalProfit{
   text-align: center;
-  border: 1px solid #f2f2f2;
+}
+
+.taxOn{
+  background-color: #ddd;
+}
+
+.Won{
+  background-color: #37a63a;
+  color: white;
+  font-weight: bold;
+}
+
+.Lost{
+  background-color: #c92a2a;
+  color: white;
+  font-weight: bold;
+}
+
+.Return{
+  background-color: #1c81e6;
+  color: white;
+  font-weight: bold;
 }
