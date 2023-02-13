@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/bukmacher-sample-diff/static/css/main.4d4e84b9.css",
-    "main.js": "/bukmacher-sample-diff/static/js/main.6c4d5eab.js",
+    "main.js": "/bukmacher-sample-diff/static/js/main.a66abad3.js",
     "static/js/787.5a032100.chunk.js": "/bukmacher-sample-diff/static/js/787.5a032100.chunk.js",
     "index.html": "/bukmacher-sample-diff/index.html",
     "main.4d4e84b9.css.map": "/bukmacher-sample-diff/static/css/main.4d4e84b9.css.map",
-    "main.6c4d5eab.js.map": "/bukmacher-sample-diff/static/js/main.6c4d5eab.js.map",
+    "main.a66abad3.js.map": "/bukmacher-sample-diff/static/js/main.a66abad3.js.map",
     "787.5a032100.chunk.js.map": "/bukmacher-sample-diff/static/js/787.5a032100.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4d4e84b9.css",
-    "static/js/main.6c4d5eab.js"
+    "static/js/main.a66abad3.js"
   ]
 }
