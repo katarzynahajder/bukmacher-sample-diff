@@ -6,7 +6,7 @@ import ReadOnlyRow from "./ReadOnlyRow"
 import EditableRow from "./EditableRow"
 
 const RecordsContainer=()=>{
-  const [records, setRecords]=useState(data);
+  const [records, setRecords]=useState(data)
   const [addFormData, setAddFormData]=useState({
     league: "",
     schedule: "",
@@ -15,7 +15,7 @@ const RecordsContainer=()=>{
     bet: "",
     exchange: "",
     bid: ""
-  });
+  })
 
   const [editFormData, setEditFormData]=useState({
     league: "",
@@ -25,30 +25,30 @@ const RecordsContainer=()=>{
     bet: "",
     exchange: "",
     bid: ""
-  });
+  })
 
-  const [editRecordId, setEditRecordId]=useState(null);
+  const [editRecordId, setEditRecordId]=useState(null)
 
   const handleAddFormChange=(event)=>{
-    event.preventDefault();
-    const fieldName=event.target.getAttribute("name");
-    const fieldValue=event.target.value;
-    const newFormData={ ...addFormData };
-    newFormData[fieldName]=fieldValue;
-    setAddFormData(newFormData);
-  };
+    event.preventDefault()
+    const fieldName=event.target.getAttribute("name")
+    const fieldValue=event.target.value
+    const newFormData={...addFormData}
+    newFormData[fieldName]=fieldValue
+    setAddFormData(newFormData)
+  }
 
   const handleEditFormChange=(event)=>{
-    event.preventDefault();
-    const fieldName=event.target.getAttribute("name");
-    const fieldValue=event.target.value;
-    const newFormData={ ...editFormData };
-    newFormData[fieldName]=fieldValue;
-    setEditFormData(newFormData);
-  };
+    event.preventDefault()
+    const fieldName=event.target.getAttribute("name")
+    const fieldValue=event.target.value
+    const newFormData={...editFormData}
+    newFormData[fieldName]=fieldValue
+    setEditFormData(newFormData)
+  }
 
   const handleAddFormSubmit=(event)=>{
-    event.preventDefault();
+    event.preventDefault()
     const newRecord={
       id: nanoid(),
       league: addFormData.league,
@@ -60,13 +60,13 @@ const RecordsContainer=()=>{
       bid: addFormData.bid,
       profit: "-",
       state: "On hold",
-    };
-    const newRecords=[...records, newRecord];
-    setRecords(newRecords);
-  };
+    }
+    const newRecords=[...records, newRecord]
+    setRecords(newRecords)
+  }
 
   const handleEditFormSubmit=(event)=>{
-    event.preventDefault();
+    event.preventDefault()
     const editedRecord={
       id: editRecordId,
       league: editFormData.league,
@@ -78,17 +78,17 @@ const RecordsContainer=()=>{
       bid: editFormData.bid,
       profit: "-",
       state: "On hold"
-    };
-    const newRecords=[...records];
-    const index=records.findIndex((record)=>record.id===editRecordId);
-    newRecords[index]=editedRecord;
-    setRecords(newRecords);
-    setEditRecordId(null);
-  };
+    }
+    const newRecords=[...records]
+    const index=records.findIndex((record)=>record.id===editRecordId)
+    newRecords[index]=editedRecord
+    setRecords(newRecords)
+    setEditRecordId(null)
+  }
 
   const handleEditClick=(event, record)=>{
-    event.preventDefault();
-    setEditRecordId(record.id);
+    event.preventDefault()
+    setEditRecordId(record.id)
     const formValues={
       league: record.league,
       schedule: record.schedule,
@@ -97,26 +97,54 @@ const RecordsContainer=()=>{
       bet: record.bet,
       exchange: record.exchange,
       bid: record.bid
-    };
-    setEditFormData(formValues);
-  };
+    }
+    setEditFormData(formValues)
+  }
 
   const handleCancelClick=()=>{
-    setEditRecordId(null);
-  };
+    setEditRecordId(null)
+  }
 
   const handleDeleteClick=(recordId)=>{
-    const newRecords=[...records];
-    const index=records.findIndex((record)=>record.id===recordId);
-    newRecords.splice(index, 1);
-    setRecords(newRecords);
-  };
+    const newRecords=[...records]
+    const index=records.findIndex((record)=>record.id===recordId)
+    newRecords.splice(index, 1)
+    setRecords(newRecords)
+  }
 
-  const [tax, setTax]=useState(false);
+  const [tax, setTax]=useState(false)
 
   const handleTaxChange=()=>{
-    setTax(!tax);
-    console.log(!tax)
+    setTax(!tax)
+    handleProfitsFromTax()
+  }
+
+  const handleProfitsFromTax=()=>{
+    records.map((record)=>{
+      if(record.state==="Won"){
+        let profit
+        profit=Number(Math.round(record.exchange*record.bid+"e+2")+"e-2")-record.bid
+        if(!tax)profit=Number(Math.round(record.exchange*record.bid*0.88+"e+2")+"e-2")-record.bid
+        if(!tax&&(profit>=2280))profit=Number(Math.round(profit*0.9+"e+2")+"e-2")-record.bid
+        const updatedRecord={
+          id: record.id,
+          league: record.league,
+          schedule: record.schedule,
+          firstTeam: record.firstTeam,
+          secondTeam: record.secondTeam,
+          bet: record.bet,
+          exchange: record.exchange,
+          bid: record.bid,
+          profit: profit,
+          state: record.state
+        };
+        const newRecords=[...records]
+        const index=records.findIndex((x)=>x.id===record.id)
+        newRecords[index]=updatedRecord
+        setRecords(newRecords)
+      }
+      return console.log(record.id)
+    })
   }
 
   return(
@@ -165,6 +193,8 @@ const RecordsContainer=()=>{
                 ) : (
                   <ReadOnlyRow
                     record={record}
+                    records={records}
+                    setRecords={setRecords}
                     handleEditClick={handleEditClick}
                     handleDeleteClick={handleDeleteClick}
                     tax={tax}
@@ -185,7 +215,7 @@ const RecordsContainer=()=>{
         </table>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default RecordsContainer;
+export default RecordsContainer

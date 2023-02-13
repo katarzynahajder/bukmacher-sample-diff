@@ -2,13 +2,13 @@ import React, {useState} from "react"
 import "./NotesArea.css"
 
 const NotesArea=()=>{
-    const [notes, setNotes]=useState("");
+    const [notes, setNotes]=useState("")
     return(
         <div id="notesArea">
             <h4>Notes</h4>
             <textarea name="notes" rows="10" value={notes} onChange={e=>setNotes(e.target.value)}></textarea>
         </div>
-    );
-};
+    )
+}
 
-export default NotesArea;
+export default NotesArea

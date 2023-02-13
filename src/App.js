@@ -1,6 +1,6 @@
 import "./App.css"
 import RecordsContainer from "./components/RecordsContainer"
-import NotesArea from "./components/NotesArea";
+import NotesArea from "./components/NotesArea"
 
 function App() {
   return(
@@ -18,7 +18,7 @@ function App() {
         *statystyki*
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

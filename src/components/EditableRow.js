@@ -18,4 +18,4 @@ const EditableRow=({editFormData, handleEditFormChange, handleCancelClick})=>{
   );
 };
 
-export default EditableRow;
+export default EditableRow
