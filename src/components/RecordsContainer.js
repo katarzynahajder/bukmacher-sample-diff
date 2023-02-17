@@ -85,15 +85,7 @@ const RecordsContainer=()=>{
   const handleEditClick=(event, record)=>{
     event.preventDefault()
     setEditRecordId(record.id)
-    const formValues={
-      league: record.league,
-      schedule: record.schedule,
-      firstTeam: record.firstTeam,
-      secondTeam: record.secondTeam,
-      bet: record.bet,
-      exchange: record.exchange,
-      bid: record.bid
-    }
+    const formValues={...record}
     setEditFormData(formValues)
   }
   
