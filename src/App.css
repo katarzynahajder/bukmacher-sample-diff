@@ -4,6 +4,8 @@
     display: flex;
     font-weight: 350;
     font-size: 30px;
+    color: white;
+    font-weight: bold;
 }
 
 #right{
