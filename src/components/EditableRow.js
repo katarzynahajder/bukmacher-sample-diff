@@ -1,6 +1,6 @@
 import React from "react"
 
-const EditableRow=({editFormData, handleEditFormChange, handleCancelClick})=>{
+const EditableRow=({editFormData, handleEditFormChange, handleEditFormSubmit, handleCancelClick})=>{
   return(
     <tr>
       <td><input type="text" name="league" className="longI" required="required" value={editFormData.league} onChange={handleEditFormChange}></input></td>
@@ -12,7 +12,7 @@ const EditableRow=({editFormData, handleEditFormChange, handleCancelClick})=>{
       <td><input type="text" name="bid" className="shortI" required="required" value={editFormData.bid} onChange={handleEditFormChange}></input></td>
       <td></td>
       <td></td>
-      <td><button type="submit">Save</button></td>
+      <td><button type="button" onClick={handleEditFormSubmit}>Save</button></td>
       <td><button type="button" onClick={handleCancelClick}>Cancel</button></td>
     </tr>
   );

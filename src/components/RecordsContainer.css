@@ -1,8 +1,5 @@
 #recordsContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 1rem;
+  padding: 3rem;
 }
 
 #headers-input{
@@ -22,7 +19,7 @@ th{
   color: white;
 }
 
-td, th, tr{
+td, th{
   padding: 10px;
   height: 35px;
   border: 1px solid #cdcdcd;
@@ -61,6 +58,16 @@ button{
 
 .totalProfit{
   text-align: center;
+}
+
+.totalProfit.W{
+  color: #37a63a;
+  font-weight: bold;
+}
+
+.totalProfit.L{
+  color: #c92a2a;
+  font-weight: bold;
 }
 
 .taxOn{

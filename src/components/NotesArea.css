@@ -1,7 +1,7 @@
 #notesArea{
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    margin-left: 3rem;
     width: 50%;
 }
 

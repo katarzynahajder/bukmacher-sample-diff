@@ -9,6 +9,7 @@
         "exchange": 2.75,
         "bid": 100,
         "profit": "-",
+        "taxedProfit": "-",
         "state": "On hold"
     },
     {
@@ -21,6 +22,7 @@
         "exchange": 4.20,
         "bid": 200,
         "profit": "-",
+        "taxedProfit": "-",
         "state": "On hold"
     },
     {
@@ -33,6 +35,7 @@
         "exchange": 1.95,
         "bid": 100,
         "profit": "-",
+        "taxedProfit": "-",
         "state": "On hold"
     }
 ]

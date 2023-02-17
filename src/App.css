@@ -1,21 +1,12 @@
 #nav{
     width: 100%;
-    background-color: #dae7ed;
+    background-color: #ddd;
     display: flex;
-    padding: 1rem;
+    font-weight: 350;
+    font-size: 30px;
 }
-#earlier{
-    float: left;
-}
-p{
-    text-align: center;
-}
-#next{
-    float: right;
-}
-
 #right{
-    background-color: #ede8da;
+    background-color: #597178;
     float: right;
     width: 30%;
     height: 800px;

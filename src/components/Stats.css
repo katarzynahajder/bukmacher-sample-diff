@@ -1,0 +1,21 @@
+#stats{
+    color: white
+}
+
+.circleBackground{
+    fill: none;
+    stroke: #637b82;
+}
+
+.circleProgress{
+    fill: none;
+    stroke: #b4c8cf;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.circleText{
+    font-size: 3rem;
+    font-weight: bold;
+    fill: white;
+}

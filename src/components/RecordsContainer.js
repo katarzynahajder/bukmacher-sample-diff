@@ -5,29 +5,37 @@ import data from "./mock-data.json"
 import ReadOnlyRow from "./ReadOnlyRow"
 import EditableRow from "./EditableRow"
 
+const initialState={
+  league: "",
+  schedule: "",
+  firstTeam: "",
+  secondTeam: "",
+  bet: "",
+  exchange: "",
+  bid: ""
+}
+
+const fields=[
+  {name: "league", className: "long", type: "text", value: "League", input: true},
+  {name: "schedule", className: "short", type: "time", value: "Schedule", input: true},
+  {name: "firstTeam", className: "long", type: "text", value: "Team #1", input: true},
+  {name: "secondTeam", className: "long", type: "text", value: "Team #2", input: true},
+  {name: "bet", className: "long", type: "text", value: "Bet", input: true},
+  {name: "exchange", className: "short", type: "text", value: "Exchange", input: true},
+  {name: "bid", className: "short", type: "text", value: "Bid", input: true},
+  {name: "profit", className: "short", type: "text", value: "Profit", input: false},
+  {name: "state", className: "short", type: "text", value: "State", input: false}
+]
+
 const RecordsContainer=()=>{
   const [records, setRecords]=useState(data)
-  const [addFormData, setAddFormData]=useState({
-    league: "",
-    schedule: "",
-    firstTeam: "",
-    secondTeam: "",
-    bet: "",
-    exchange: "",
-    bid: ""
-  })
 
-  const [editFormData, setEditFormData]=useState({
-    league: "",
-    schedule: "",
-    firstTeam: "",
-    secondTeam: "",
-    bet: "",
-    exchange: "",
-    bid: ""
-  })
+  const [addFormData, setAddFormData]=useState({...initialState})
+  const [editFormData, setEditFormData]=useState({...initialState})
 
   const [editRecordId, setEditRecordId]=useState(null)
+
+  const [totalProfit, setTotalProfit]=useState(0)
 
   const handleAddFormChange=(event)=>{
     event.preventDefault()
@@ -50,39 +58,27 @@ const RecordsContainer=()=>{
   const handleAddFormSubmit=(event)=>{
     event.preventDefault()
     const newRecord={
+      ...addFormData,
       id: nanoid(),
-      league: addFormData.league,
-      schedule: addFormData.schedule,
-      firstTeam: addFormData.firstTeam,
-      secondTeam: addFormData.secondTeam,
-      bet: addFormData.bet,
-      exchange: addFormData.exchange,
-      bid: addFormData.bid,
       profit: "-",
-      state: "On hold",
+      taxedProfit: "-",
+      state: "On hold"
     }
     const newRecords=[...records, newRecord]
-    setRecords(newRecords)
+    calculateTax(newRecords)
   }
 
   const handleEditFormSubmit=(event)=>{
     event.preventDefault()
     const editedRecord={
+      ...editFormData,
       id: editRecordId,
-      league: editFormData.league,
-      schedule: editFormData.schedule,
-      firstTeam: editFormData.firstTeam,
-      secondTeam: editFormData.secondTeam,
-      bet: editFormData.bet,
-      exchange: editFormData.exchange,
-      bid: editFormData.bid,
-      profit: "-",
       state: "On hold"
     }
     const newRecords=[...records]
     const index=records.findIndex((record)=>record.id===editRecordId)
     newRecords[index]=editedRecord
-    setRecords(newRecords)
+    calculateTax(newRecords)
     setEditRecordId(null)
   }
 
@@ -100,7 +96,7 @@ const RecordsContainer=()=>{
     }
     setEditFormData(formValues)
   }
-
+  
   const handleCancelClick=()=>{
     setEditRecordId(null)
   }
@@ -109,108 +105,108 @@ const RecordsContainer=()=>{
     const newRecords=[...records]
     const index=records.findIndex((record)=>record.id===recordId)
     newRecords.splice(index, 1)
-    setRecords(newRecords)
+    calculateTax(newRecords)
+    totalProfitCounter(newRecords)
   }
 
   const [tax, setTax]=useState(false)
 
   const handleTaxChange=()=>{
     setTax(!tax)
-    handleProfitsFromTax()
   }
 
-  const handleProfitsFromTax=()=>{
-    records.map((record)=>{
-      if(record.state==="Won"){
-        let profit
-        profit=Number(Math.round(record.exchange*record.bid+"e+2")+"e-2")-record.bid
-        if(!tax)profit=Number(Math.round(record.exchange*record.bid*0.88+"e+2")+"e-2")-record.bid
-        if(!tax&&(profit>=2280))profit=Number(Math.round(profit*0.9+"e+2")+"e-2")-record.bid
-        const updatedRecord={
-          id: record.id,
-          league: record.league,
-          schedule: record.schedule,
-          firstTeam: record.firstTeam,
-          secondTeam: record.secondTeam,
-          bet: record.bet,
-          exchange: record.exchange,
-          bid: record.bid,
-          profit: profit,
-          state: record.state
-        };
-        const newRecords=[...records]
-        const index=records.findIndex((x)=>x.id===record.id)
-        newRecords[index]=updatedRecord
-        setRecords(newRecords)
-      }
-      return console.log(record.id)
+  const calculateTax=(records)=>{
+    let newRecords=[]
+    records.forEach((record)=>{
+      let profit=Number(Math.round(record.exchange*record.bid+"e+2")+"e-2")-record.bid
+      let taxedProfit=Number(Math.round(record.exchange*record.bid*0.88+"e+2")+"e-2")
+      if(taxedProfit>=2280)taxedProfit=Number(Math.round(taxedProfit*0.9+"e+2")+"e-2")
+      taxedProfit-=record.bid
+      newRecords.push({
+        ...record,
+        profit,
+        taxedProfit
+      })
     })
+    setRecords(newRecords)
+  }
+
+  const totalProfitCounter=(records)=>{
+    let newTotal=0
+    records.forEach((record)=>{
+      if(record.state==="Won"){
+        if(tax)newTotal+=record.taxedProfit
+        else newTotal+=record.profit
+      }
+      else if(record.state==="Lost")newTotal-=record.bid
+    })
+    newTotal=Number(Math.round(newTotal+"e+2")+"e-2")
+    setTotalProfit(newTotal)
   }
 
   return(
     <div id="recordsContainer">
       <form onSubmit={handleAddFormSubmit}>
-        <table id="headers-input">
-          <thead>
+        <table>
+          <thead id="headers-input">
             <tr>
-              <th className="long">League</th>
-              <th className="short">Schedule</th>
-              <th className="long">Team #1</th>
-              <th className="long">Team #2</th>
-              <th className="long">Bet</th>
-              <th className="short">Exchange</th>
-              <th className="short">Bid</th>
-              <th className="short">Profit</th>
-              <th className="short">State</th>
+              {fields.map(({name, className, value})=>(
+                <th key={name} className={className}>
+                  {value}
+                </th>
+              ))}
             </tr>
             <tr>
-              <td className="long"><input type="text" name="league" className="longI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="short"><input type="time" name="schedule" className="shortI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="long"><input type="text" name="firstTeam"  className="longI"required="required" onChange={handleAddFormChange} /></td>
-              <td className="long"><input type="text" name="secondTeam" className="longI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="long"><input type="text" name="bet" className="longI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="short"><input type="text" name="exchange" className="shortI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="short"><input type="text" name="bid" className="shortI" required="required" onChange={handleAddFormChange} /></td>
-              <td className="short"></td>
-              <td className="short"></td>
+              {fields.map(({name, className, type, input})=>(
+                <td key={name}>
+                  {input ? (
+                    <input
+                      type={type}
+                      name={name}
+                      className={`${className}I`}
+                      required
+                      onChange={handleAddFormChange}
+                    />
+                    ) : (null)}
+                </td>
+              ))}
               <td><button type="submit">Add</button></td>
               <td><button type="button" className={tax ? "taxOn" : ""} onClick={handleTaxChange}>Tax</button></td>
             </tr>
+            <tr>
+              <td colSpan="11" style={{border: "none"}}/>
+            </tr>
           </thead>
-        </table>
-      </form>
-      <form onSubmit={handleEditFormSubmit}>
-        <table id="data">
-          <tbody>
+          <tbody id="data">
             {records.map((record) => (
               <Fragment>
                 {editRecordId === record.id ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
+                    handleEditFormSubmit={handleEditFormSubmit}
                     handleCancelClick={handleCancelClick}
                   />
                 ) : (
                   <ReadOnlyRow
                     record={record}
                     records={records}
-                    setRecords={setRecords}
                     handleEditClick={handleEditClick}
                     handleDeleteClick={handleDeleteClick}
                     tax={tax}
+                    calculateTax={calculateTax}
+                    totalProfitCounter={totalProfitCounter}
                   />
                 )}
               </Fragment>
             ))}
           </tbody>
           <tfoot>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td colSpan="5" style={{border: "none"}} />
             <td className="totalProfit" colSpan="2">Total profit</td>
-            <td className="totalProfit"></td>
+            <td className={totalProfit>0 ? "totalProfit W" : totalProfit<0 ? "totalProfit L" : "totalProfit"}>
+              {totalProfit}
+            </td>
           </tfoot>
         </table>
       </form>
