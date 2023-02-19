@@ -27,9 +27,16 @@ td, th{
 
 input{
   padding: 6px;
+  border: 1px solid #a6a6a6;
+  border-radius: 3px;
+  font-family: 'Jura', sans-serif;
 }
 
 input:focus{outline: none}
+
+input[type="text"]{
+  height: 20px;
+}
 
 .long{
   width: 200px;
@@ -54,6 +61,7 @@ button{
   margin: auto;
   width: 80px;
   border: 1px solid lightgray;
+  font-family: 'Jura', sans-serif;
 }
 
 .totalProfit{

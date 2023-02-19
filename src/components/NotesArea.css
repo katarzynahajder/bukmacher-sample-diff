@@ -8,6 +8,7 @@
 textarea{
     border: 1px solid lightgray;
     padding: 5px;
+    font-family: 'Jura', sans-serif;
 }
   
 textarea:focus{outline: none}

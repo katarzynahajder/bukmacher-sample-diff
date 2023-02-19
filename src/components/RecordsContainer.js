@@ -16,15 +16,15 @@ const initialState={
 }
 
 const fields=[
-  {name: "league", className: "long", type: "text", value: "League", input: true},
-  {name: "schedule", className: "short", type: "time", value: "Schedule", input: true},
-  {name: "firstTeam", className: "long", type: "text", value: "Team #1", input: true},
-  {name: "secondTeam", className: "long", type: "text", value: "Team #2", input: true},
-  {name: "bet", className: "long", type: "text", value: "Bet", input: true},
-  {name: "exchange", className: "short", type: "text", value: "Exchange", input: true},
-  {name: "bid", className: "short", type: "text", value: "Bid", input: true},
-  {name: "profit", className: "short", type: "text", value: "Profit", input: false},
-  {name: "state", className: "short", type: "text", value: "State", input: false}
+  {name: "league", className: "long", type: "text", value: "LEAGUE", input: true},
+  {name: "schedule", className: "short", type: "time", value: "SCHEDULE", input: true},
+  {name: "firstTeam", className: "long", type: "text", value: "TEAM #1", input: true},
+  {name: "secondTeam", className: "long", type: "text", value: "TEAM #2", input: true},
+  {name: "bet", className: "long", type: "text", value: "BET", input: true},
+  {name: "exchange", className: "short", type: "text", value: "EXCHANGE", input: true},
+  {name: "bid", className: "short", type: "text", value: "BID", input: true},
+  {name: "profit", className: "short", type: "text", value: "PROFIT", input: false},
+  {name: "state", className: "short", type: "text", value: "STATE", input: false}
 ]
 
 const RecordsContainer=()=>{
